@@ -1,10 +1,8 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.IO;
+using System.Reflection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -12,15 +10,29 @@ using Microsoft.OpenApi.Models;
 
 namespace Training.CodersAcademy.MusicApp.Api
 {
+    /// <summary>
+    /// Configures services and the app's request pipeline.
+    /// </summary>
     public class Startup
     {
+        /// <summary>
+        /// The configuration properties.
+        /// </summary>
         public IConfiguration Configuration { get; }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Startup"/> class.
+        /// </summary>
+        /// <param name="configuration">The <see cref="IConfiguration"/>.</param>
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
 
+        /// <summary>
+        /// Configures services before configuring the pipeline.
+        /// </summary>
+        /// <param name="services">The collection of services descriptors.</param>
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
@@ -32,9 +44,17 @@ namespace Training.CodersAcademy.MusicApp.Api
                         Title = "Coders Academy - MusicApp API",
                         Version = "v1",
                     });
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                config.IncludeXmlComments(xmlPath);
             });
         }
 
+        /// <summary>
+        /// Creates the app's request processing pipeline.
+        /// </summary>
+        /// <param name="app">The <see cref="IApplicationBuilder"/> instance.</param>
+        /// <param name="env">The hosting environment.</param>
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
