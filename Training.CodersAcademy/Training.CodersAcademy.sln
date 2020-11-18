@@ -5,7 +5,15 @@ VisualStudioVersion = 16.0.30711.63
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{ED95410F-C80D-4920-B2FF-00AC1A6EA8E6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Training.CodersAcademy.MusicApp.Api", "src\Training.CodersAcademy.MusicApp.Api\Training.CodersAcademy.MusicApp.Api.csproj", "{2FB9116F-3102-4CA1-B520-B83FA009B31B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Training.CodersAcademy.MusicApp.Api", "src\Training.CodersAcademy.MusicApp.Api\Training.CodersAcademy.MusicApp.Api.csproj", "{2FB9116F-3102-4CA1-B520-B83FA009B31B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution items", "Solution items", "{93AA26C8-E6E7-4DD7-871B-644E9542C3FA}"
+	ProjectSection(SolutionItems) = preProject
+		..\.gitignore = ..\.gitignore
+		..\LICENSE = ..\LICENSE
+		..\README-br.md = ..\README-br.md
+		..\README.md = ..\README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
