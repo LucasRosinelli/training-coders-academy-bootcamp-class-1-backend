@@ -3,11 +3,11 @@ using System.IO;
 using System.Reflection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Training.CodersAcademy.MusicApp.Api.Extensions;
 using Training.CodersAcademy.MusicApp.Api.Repository;
 
 namespace Training.CodersAcademy.MusicApp.Api
@@ -39,20 +39,9 @@ namespace Training.CodersAcademy.MusicApp.Api
         {
             services.AddControllers();
 
-            var dbProvider = Configuration["DbProvider"] ?? "sqlserver";
-
             services.AddDbContext<MusicAppContext>(config =>
             {
-                var connectionString = Configuration.GetConnectionString("BootcampConnection");
-
-                if (dbProvider == "sqlite")
-                {
-                    config.UseSqlite(connectionString);
-                }
-                else
-                {
-                    config.UseSqlServer(connectionString);
-                }
+                config.UseProvider(Configuration);
             });
 
             services.AddScoped<AlbumRepository>();
