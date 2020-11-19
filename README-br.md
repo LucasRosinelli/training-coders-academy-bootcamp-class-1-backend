@@ -7,12 +7,23 @@ Este repositório é baseado no treinamento **Developer Expert *(Turma 1)*** da 
 - Instrutor: [Rafael Cruz](https://github.com/rafaelcruz-net)
 - Visite o [repositório original](https://github.com/rafaelcruz-net/coders-academy-bootcamp-turma-1)
 
+> :warning: **IMPORTANTE**: Antes de rodar a aplicação, tenha certeza que o banco de dados está em execução.
+> * Há um arquivo *[Docker Compose](./docker-compose.yml)* com um serviço **SQL Server Express**.
+>   1. Execute o comando *Docker Compose* `docker-compose up -d` na pasta da solução.
+>   1. Atualize seu banco de dados usando o comando *.NET Core CLI for Entity Framework Core* `dotnet ef database update` na pasta da API.
+
 ## Ferramentas
 - [Visual Studio 2019](https://visualstudio.microsoft.com/vs/community/) *v16.8+*
 - [.NET 5.0 SDK](https://dotnet.microsoft.com/download)
+- [.NET Core CLI para Entity Framework Core](https://docs.microsoft.com/ef/core/cli/dotnet) *v5.0.0*
 
 ### Pacotes (dependências)
 - [Swashbuckle - Swagger](https://github.com/domaindrivendev/Swashbuckle.AspNetCore)
+- [Microsoft - Entity Framework Core](https://docs.microsoft.com/ef/core/)
+  - EF Core Design
+  - EF Core Relational
+  - EF Core SQLite
+  - EF Core SQL Server
 
 ## Links úteis
 - HTTP Status Code
