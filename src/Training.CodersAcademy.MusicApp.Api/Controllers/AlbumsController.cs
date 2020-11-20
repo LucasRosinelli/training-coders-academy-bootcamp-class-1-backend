@@ -37,7 +37,7 @@ namespace Training.CodersAcademy.MusicApp.Api.Controllers
         /// <returns>The list of albums.</returns>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> List()
+        public async Task<IActionResult> GetAll()
         {
             var result = await _repository.GetAllAsync();
 
