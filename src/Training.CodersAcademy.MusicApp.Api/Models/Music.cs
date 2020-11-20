@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.Json.Serialization;
 
 namespace Training.CodersAcademy.MusicApp.Api.Models
 {
@@ -22,6 +23,7 @@ namespace Training.CodersAcademy.MusicApp.Api.Models
         /// <summary>
         /// The album which the music belongs to.
         /// </summary>
+        [JsonIgnore]
         public Album Album { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Training.CodersAcademy.MusicApp.Api.Models;
 using Training.CodersAcademy.MusicApp.Api.Repository.Mapping;
 
@@ -9,6 +10,8 @@ namespace Training.CodersAcademy.MusicApp.Api.Repository
     /// </summary>
     public class MusicAppContext : DbContext
     {
+        private readonly ILoggerFactory _loggerFactory;
+
         /// <summary>
         /// Albums.
         /// </summary>
@@ -25,6 +28,7 @@ namespace Training.CodersAcademy.MusicApp.Api.Repository
         public MusicAppContext(DbContextOptions<MusicAppContext> options)
             : base(options)
         {
+            _loggerFactory = LoggerFactory.Create(x => x.AddConsole());
         }
 
         /// <inheritdoc/>
@@ -34,6 +38,14 @@ namespace Training.CodersAcademy.MusicApp.Api.Repository
             modelBuilder.ApplyConfiguration(new MusicMapping());
 
             base.OnModelCreating(modelBuilder);
+        }
+
+        /// <inheritdoc/>
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseLoggerFactory(_loggerFactory);
+
+            base.OnConfiguring(optionsBuilder);
         }
     }
 }

@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Reflection;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -43,6 +44,8 @@ namespace Training.CodersAcademy.MusicApp.Api
             {
                 config.UseProvider(Configuration);
             });
+
+            services.AddAutoMapper(typeof(Startup).Assembly);
 
             services.AddScoped<AlbumRepository>();
             services.AddScoped<MusicRepository>();

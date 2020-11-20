@@ -1,6 +1,11 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
+using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Training.CodersAcademy.MusicApp.Api.Models;
 using Training.CodersAcademy.MusicApp.Api.Repository;
+using Training.CodersAcademy.MusicApp.Api.ViewModels.Request;
 
 namespace Training.CodersAcademy.MusicApp.Api.Controllers
 {
@@ -11,14 +16,17 @@ namespace Training.CodersAcademy.MusicApp.Api.Controllers
     [ApiController]
     public class AlbumsController : ControllerBase
     {
+        private readonly IMapper _mapper;
         private readonly AlbumRepository _repository;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AlbumsController"/> class.
         /// </summary>
+        /// <param name="mapper">The <see cref="IMapper"/>.</param>
         /// <param name="repository">The <see cref="AlbumRepository"/>.</param>
-        public AlbumsController(AlbumRepository repository)
+        public AlbumsController(IMapper mapper, AlbumRepository repository)
         {
+            _mapper = mapper;
             _repository = repository;
         }
 
@@ -27,11 +35,74 @@ namespace Training.CodersAcademy.MusicApp.Api.Controllers
         /// </summary>
         /// <returns>The list of albums.</returns>
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> List()
         {
             var result = await _repository.GetAllAsync();
 
             return Ok(result);
+        }
+
+        /// <summary>
+        /// Gets an album by Id.
+        /// </summary>
+        /// <param name="id">The Id of the album.</param>
+        /// <returns>The album.</returns>
+        [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetById(Guid id)
+        {
+            var result = await _repository.GetByIdAsync(id);
+
+            if (result is null)
+            {
+                return NotFound();
+            }
+
+            return Ok(result);
+        }
+
+        /// <summary>
+        /// Creates an album.
+        /// </summary>
+        /// <param name="request">The album to create.</param>
+        /// <returns>The album created.</returns>
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> Create(AlbumRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var album = _mapper.Map<Album>(request);
+            await _repository.CreateAsync(album);
+
+            return Created($"/{album.Id}", album);
+        }
+
+        /// <summary>
+        /// Deletes an album.
+        /// </summary>
+        /// <param name="id">The Id of the album.</param>
+        /// <returns>Empty content.</returns>
+        [HttpDelete]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            var result = await _repository.GetByIdAsync(id);
+
+            if (result is null)
+            {
+                return NotFound();
+            }
+
+            await _repository.DeleteAsync(result);
+
+            return NoContent();
         }
     }
 }
