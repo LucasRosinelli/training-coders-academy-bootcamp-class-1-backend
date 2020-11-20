@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Training.CodersAcademy.MusicApp.Api.Models;
@@ -39,6 +40,16 @@ namespace Training.CodersAcademy.MusicApp.Api.Repository
         public async Task<Album> GetByIdAsync(Guid id)
         {
             return await _context.Albums.Include(x => x.Musics).FirstOrDefaultAsync(x => x.Id == id);
+        }
+
+        /// <summary>
+        /// Gets musics by an album Id.
+        /// </summary>
+        /// <param name="id">Id of the album.</param>
+        /// <returns>List of musics of a given <see cref="Album"/>.</returns>
+        public async Task<IEnumerable<Music>> GetByAlbumIdAsync(Guid id)
+        {
+            return (await GetByIdAsync(id))?.Musics;
         }
 
         /// <summary>

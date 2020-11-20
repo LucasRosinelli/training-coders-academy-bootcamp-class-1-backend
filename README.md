@@ -3,7 +3,7 @@
 
 [![License](https://img.shields.io/github/license/LucasRosinelli/training-coders-academy-bootcamp-class-1-backend)](./LICENSE)
 
-This repositiry is based on **Developer Expert *(Class 1)*** training by [Coders Academy](https://codersacademy.tech/).
+This repository is based on **Developer Expert *(Class 1)*** training by [Coders Academy](https://codersacademy.tech/).
 - Instructor: [Rafael Cruz](https://github.com/rafaelcruz-net)
 - Visit the [original repository](https://github.com/rafaelcruz-net/coders-academy-bootcamp-turma-1)
 

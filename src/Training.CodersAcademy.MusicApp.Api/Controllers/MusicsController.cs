@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
@@ -11,30 +10,30 @@ using Training.CodersAcademy.MusicApp.Api.ViewModels.Request;
 namespace Training.CodersAcademy.MusicApp.Api.Controllers
 {
     /// <summary>
-    /// Manages albums.
+    /// Manages musics.
     /// </summary>
     [Route("[controller]")]
     [ApiController]
-    public class AlbumsController : ControllerBase
+    public class MusicsController : ControllerBase
     {
         private readonly IMapper _mapper;
-        private readonly AlbumRepository _repository;
+        private readonly MusicRepository _repository;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AlbumsController"/> class.
+        /// Initializes a new instance of the <see cref="MusicsController"/> class.
         /// </summary>
         /// <param name="mapper">The <see cref="IMapper"/>.</param>
-        /// <param name="repository">The <see cref="AlbumRepository"/>.</param>
-        public AlbumsController(IMapper mapper, AlbumRepository repository)
+        /// <param name="repository">The <see cref="MusicRepository"/>.</param>
+        public MusicsController(IMapper mapper, MusicRepository repository)
         {
             _mapper = mapper;
             _repository = repository;
         }
 
         /// <summary>
-        /// Gets a list of albums.
+        /// Gets a list of musics.
         /// </summary>
-        /// <returns>The list of albums.</returns>
+        /// <returns>The list of musics.</returns>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> List()
@@ -45,10 +44,10 @@ namespace Training.CodersAcademy.MusicApp.Api.Controllers
         }
 
         /// <summary>
-        /// Gets an album by Id.
+        /// Gets a music by Id.
         /// </summary>
-        /// <param name="id">The Id of the album.</param>
-        /// <returns>The album.</returns>
+        /// <param name="id">The Id of the music.</param>
+        /// <returns>The music.</returns>
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -65,50 +64,30 @@ namespace Training.CodersAcademy.MusicApp.Api.Controllers
         }
 
         /// <summary>
-        /// Gets musics by an album Id.
+        /// Creates a music.
         /// </summary>
-        /// <param name="id">Id of the album.</param>
-        /// <returns>List of musics of a given album.</returns>
-        [HttpGet("{id}/Musics")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetByAlbumId(Guid id)
-        {
-            var result = await _repository.GetByAlbumIdAsync(id);
-
-            if (result?.Any() == false)
-            {
-                return NotFound();
-            }
-
-            return Ok(result);
-        }
-
-        /// <summary>
-        /// Creates an album.
-        /// </summary>
-        /// <param name="request">The album to create.</param>
-        /// <returns>The album created.</returns>
+        /// <param name="request">The music to create.</param>
+        /// <returns>The music created.</returns>
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> Create(AlbumRequest request)
+        public async Task<IActionResult> Create(MusicRequest request)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var model = _mapper.Map<Album>(request);
+            var model = _mapper.Map<Music>(request);
             await _repository.CreateAsync(model);
 
             return Created($"/{model.Id}", model);
         }
 
         /// <summary>
-        /// Deletes an album.
+        /// Deletes a music.
         /// </summary>
-        /// <param name="id">The Id of the album.</param>
+        /// <param name="id">The Id of the music.</param>
         /// <returns>Empty content.</returns>
         [HttpDelete]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -120,6 +99,11 @@ namespace Training.CodersAcademy.MusicApp.Api.Controllers
             if (result is null)
             {
                 return NotFound();
+            }
+
+            if (result.Album.Musics.Count == 1)
+            {
+                return UnprocessableEntity();
             }
 
             await _repository.DeleteAsync(result);

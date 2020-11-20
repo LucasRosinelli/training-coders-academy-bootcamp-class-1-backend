@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Training.CodersAcademy.MusicApp.Api.Models;
@@ -28,6 +30,37 @@ namespace Training.CodersAcademy.MusicApp.Api.Repository
         public async Task<IEnumerable<Music>> GetAllAsync()
         {
             return await _context.Musics.ToListAsync();
+        }
+
+        /// <summary>
+        /// Gets a music by Id.
+        /// </summary>
+        /// <param name="id">Id of the music.</param>
+        /// <returns>The <see cref="Music"/>.</returns>
+        public async Task<Music> GetByIdAsync(Guid id)
+        {
+            return await _context.Musics.FirstOrDefaultAsync(x => x.Id == id);
+        }
+
+        /// <summary>
+        /// Creates a music.
+        /// </summary>
+        /// <param name="model">The <see cref="Music"/> to create.</param>
+        public async Task CreateAsync(Music model)
+        {
+            await _context.Musics.AddAsync(model);
+            await _context.SaveChangesAsync();
+        }
+
+        /// <summary>
+        /// Deletes a music.
+        /// </summary>
+        /// <param name="model">The <see cref="Music"/> to delete.</param>
+        /// <returns></returns>
+        public async Task DeleteAsync(Music model)
+        {
+            _context.Remove(model);
+            await _context.SaveChangesAsync();
         }
     }
 }
