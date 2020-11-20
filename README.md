@@ -24,6 +24,10 @@ This repositiry is based on **Developer Expert *(Class 1)*** training by [Coders
   - EF Core Relational
   - EF Core SQLite
   - EF Core SQL Server
+- [AutoMapper](https://github.com/AutoMapper/AutoMapper)
+  - Dependency Injection
+- [Microsoft - Logging](https://docs.microsoft.com/dotnet/core/extensions/logging)
+  - Console Logging
 
 ## Useful links
 - HTTP Status Code

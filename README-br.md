@@ -24,6 +24,10 @@ Este repositório é baseado no treinamento **Developer Expert *(Turma 1)*** da 
   - EF Core Relational
   - EF Core SQLite
   - EF Core SQL Server
+- [AutoMapper](https://github.com/AutoMapper/AutoMapper)
+  - Dependency Injection
+- [Microsoft - Logging](https://docs.microsoft.com/dotnet/core/extensions/logging)
+  - Console Logging
 
 ## Links úteis
 - HTTP Status Code
