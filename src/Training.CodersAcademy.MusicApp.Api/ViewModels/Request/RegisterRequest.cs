@@ -1,28 +1,28 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using Training.CodersAcademy.MusicApp.Api.Models;
 
 namespace Training.CodersAcademy.MusicApp.Api.ViewModels.Request
 {
     /// <summary>
-    /// The request for a <see cref="Music"/>.
+    /// The request for a <see cref="User"/> registration.
     /// </summary>
-    public class MusicRequest
+    public class RegisterRequest
     {
         /// <summary>
-        /// Name of the music.
+        /// Name of the user.
         /// </summary>
         [Required]
         public string Name { get; set; }
         /// <summary>
-        /// Duration of the music in seconds.
+        /// Email of the user.
         /// </summary>
         [Required]
-        public int Duration { get; set; }
+        [EmailAddress]
+        public string Email { get; set; }
         /// <summary>
-        /// Id of the album.
+        /// Password of the user.
         /// </summary>
         [Required]
-        public Guid AlbumId { get; set; }
+        public string Password { get; set; }
     }
 }

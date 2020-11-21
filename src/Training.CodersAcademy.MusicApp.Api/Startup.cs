@@ -49,6 +49,7 @@ namespace Training.CodersAcademy.MusicApp.Api
 
             services.AddScoped<AlbumRepository>();
             services.AddScoped<MusicRepository>();
+            services.AddScoped<UserRepository>();
 
             services.AddSwaggerGen(config =>
             {

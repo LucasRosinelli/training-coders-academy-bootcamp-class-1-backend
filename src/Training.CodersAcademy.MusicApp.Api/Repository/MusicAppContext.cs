@@ -20,6 +20,14 @@ namespace Training.CodersAcademy.MusicApp.Api.Repository
         /// Musics.
         /// </summary>
         public DbSet<Music> Musics { get; set; }
+        /// <summary>
+        /// Musics.
+        /// </summary>
+        public DbSet<User> Users { get; set; }
+        /// <summary>
+        /// Musics.
+        /// </summary>
+        public DbSet<FavoriteMusic> FavoriteMusics { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MusicAppContext"/> class.
@@ -36,6 +44,8 @@ namespace Training.CodersAcademy.MusicApp.Api.Repository
         {
             modelBuilder.ApplyConfiguration(new AlbumMapping());
             modelBuilder.ApplyConfiguration(new MusicMapping());
+            modelBuilder.ApplyConfiguration(new UserMapping());
+            modelBuilder.ApplyConfiguration(new FavoriteMusicMapping());
 
             base.OnModelCreating(modelBuilder);
         }

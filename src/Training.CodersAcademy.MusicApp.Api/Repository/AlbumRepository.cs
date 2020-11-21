@@ -56,6 +56,7 @@ namespace Training.CodersAcademy.MusicApp.Api.Repository
         /// Creates an album.
         /// </summary>
         /// <param name="model">The <see cref="Album"/> to create.</param>
+        /// <returns></returns>
         public async Task CreateAsync(Album model)
         {
             await _context.Albums.AddAsync(model);

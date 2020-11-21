@@ -21,7 +21,11 @@ namespace Training.CodersAcademy.MusicApp.Api.Models
         /// </summary>
         public int Duration { get; set; }
         /// <summary>
-        /// The album which the music belongs to.
+        /// Id of the album this music belongs to.
+        /// </summary>
+        public Guid AlbumId { get; set; }
+        /// <summary>
+        /// The album this music belongs to.
         /// </summary>
         [JsonIgnore]
         public Album Album { get; set; }

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Training.CodersAcademy.MusicApp.Api.Models;
@@ -39,13 +38,17 @@ namespace Training.CodersAcademy.MusicApp.Api.Repository
         /// <returns>The <see cref="Music"/>.</returns>
         public async Task<Music> GetByIdAsync(Guid id)
         {
-            return await _context.Musics.FirstOrDefaultAsync(x => x.Id == id);
+            return await _context.Musics
+                .Include(x => x.Album)
+                .ThenInclude(x => x.Musics)
+                .FirstOrDefaultAsync(x => x.Id == id);
         }
 
         /// <summary>
         /// Creates a music.
         /// </summary>
         /// <param name="model">The <see cref="Music"/> to create.</param>
+        /// <returns></returns>
         public async Task CreateAsync(Music model)
         {
             await _context.Musics.AddAsync(model);

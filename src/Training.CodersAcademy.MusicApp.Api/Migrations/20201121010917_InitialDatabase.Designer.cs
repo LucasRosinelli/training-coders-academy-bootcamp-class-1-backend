@@ -11,7 +11,7 @@ namespace Training.CodersAcademy.MusicApp.Api.Migrations
 {
 #pragma warning disable 1591
     [DbContext(typeof(MusicAppContext))]
-    [Migration("20201118224812_InitialDatabase")]
+    [Migration("20201121010917_InitialDatabase")]
     partial class InitialDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -52,13 +52,35 @@ namespace Training.CodersAcademy.MusicApp.Api.Migrations
                     b.ToTable("Albums");
                 });
 
+            modelBuilder.Entity("Training.CodersAcademy.MusicApp.Api.Models.FavoriteMusic", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("MusicId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MusicId")
+                        .IsUnique();
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("FavoriteMusics");
+                });
+
             modelBuilder.Entity("Training.CodersAcademy.MusicApp.Api.Models.Music", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("AlbumId")
+                    b.Property<Guid>("AlbumId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Duration")
@@ -76,12 +98,63 @@ namespace Training.CodersAcademy.MusicApp.Api.Migrations
                     b.ToTable("Musics");
                 });
 
+            modelBuilder.Entity("Training.CodersAcademy.MusicApp.Api.Models.User", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("Photo")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("Training.CodersAcademy.MusicApp.Api.Models.FavoriteMusic", b =>
+                {
+                    b.HasOne("Training.CodersAcademy.MusicApp.Api.Models.Music", "Music")
+                        .WithOne()
+                        .HasForeignKey("Training.CodersAcademy.MusicApp.Api.Models.FavoriteMusic", "MusicId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Training.CodersAcademy.MusicApp.Api.Models.User", "User")
+                        .WithMany("FavoriteMusics")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Music");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Training.CodersAcademy.MusicApp.Api.Models.Music", b =>
                 {
                     b.HasOne("Training.CodersAcademy.MusicApp.Api.Models.Album", "Album")
                         .WithMany("Musics")
                         .HasForeignKey("AlbumId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Album");
                 });
@@ -89,6 +162,11 @@ namespace Training.CodersAcademy.MusicApp.Api.Migrations
             modelBuilder.Entity("Training.CodersAcademy.MusicApp.Api.Models.Album", b =>
                 {
                     b.Navigation("Musics");
+                });
+
+            modelBuilder.Entity("Training.CodersAcademy.MusicApp.Api.Models.User", b =>
+                {
+                    b.Navigation("FavoriteMusics");
                 });
 #pragma warning restore 612, 618
         }
