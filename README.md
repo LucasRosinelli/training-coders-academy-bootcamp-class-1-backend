@@ -2,6 +2,7 @@
 > :brazil: [Veja em Português](./README-br.md)
 
 [![License](https://img.shields.io/github/license/LucasRosinelli/training-coders-academy-bootcamp-class-1-backend)](./LICENSE)
+[![.NET Core](https://github.com/LucasRosinelli/training-coders-academy-bootcamp-class-1-backend/workflows/.NET%20Core/badge.svg)](./.github/workflows/backend-dotnet-core.yml)
 
 This repository is based on **Developer Expert *(Class 1)*** training by [Coders Academy](https://codersacademy.tech/).
 - Instructor: [Rafael Cruz](https://github.com/rafaelcruz-net)
