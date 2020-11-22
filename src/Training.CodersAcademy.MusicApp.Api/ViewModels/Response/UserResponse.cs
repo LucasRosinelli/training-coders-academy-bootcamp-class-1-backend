@@ -25,6 +25,9 @@ namespace Training.CodersAcademy.MusicApp.Api.ViewModels.Response
         /// Photo of the user.
         /// </summary>
         public string Photo { get; set; }
+        /// <summary>
+        /// Favorites musics of the user.
+        /// </summary>
         public IList<FavoriteMusicResponse> FavoriteMusics { get; set; }
     }
 }
