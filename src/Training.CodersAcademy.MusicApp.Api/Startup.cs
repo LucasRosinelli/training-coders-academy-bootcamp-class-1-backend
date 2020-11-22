@@ -38,6 +38,16 @@ namespace Training.CodersAcademy.MusicApp.Api
         /// <param name="services">The collection of services descriptors.</param>
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(config =>
+            {
+                config.AddDefaultPolicy(builder =>
+                {
+                    builder.WithOrigins("http://localhost:4200")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
+                });
+            });
+
             services.AddControllers();
 
             services.AddDbContext<MusicAppContext>(config =>
@@ -86,6 +96,8 @@ namespace Training.CodersAcademy.MusicApp.Api
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors();
 
             app.UseAuthorization();
 
