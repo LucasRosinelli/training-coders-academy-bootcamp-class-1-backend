@@ -34,6 +34,9 @@ Este repositório é baseado no treinamento **Developer Expert *(Turma 1)*** da 
   - [Mozilla](https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Status)
   - [Especificação IETF RFC 7231 - HTTP/1.1](https://tools.ietf.org/html/rfc7231#section-6)
 - [Especificação OpenAPI 3.0.3](http://spec.openapis.org/oas/v3.0.3)
+- Cross-Origin Requests (CORS)
+  - [Specification CORS](https://www.w3.org/TR/cors/)
+  - [Enable CORS in ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/security/cors?view=aspnetcore-5.0)
 
 ## Autor
 - [Lucas Rosinelli da Rocha](https://lucasrosinelli.com/)
